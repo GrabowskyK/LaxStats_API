@@ -29,5 +29,7 @@ namespace LaxStats_API.Services.TeamServ
             });
         public IEnumerable<Team> GetTeamsInLeague(int leagueId) => databaseContext.Teams
             .Where(t => t.LeagueId == leagueId);
+
+        public Team GetTeamById(int teamId) => databaseContext.Teams.Where(t => t.Id == teamId).FirstOrDefault();
     }
 }

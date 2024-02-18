@@ -7,11 +7,11 @@
         public string Surname { get; set; }
         public DateTime Born { get; set; }
         public int ShirtNumber { get; set; }
-        public int GamePlayed { get; set; }
-        public int Goal {  get; set; }
-        public int Assist { get; set; }
-        public int Penalties { get; set; }
-        public int MinutesPenalties { get; set; }
+        public int GamePlayed { get; set; } = 0;
+        public int Goal { get; set; } = 0;
+        public int Assist { get; set; } = 0;
+        public int Penalties { get; set; } = 0;
+        public int MinutesPenalties { get; set; } = 0;
         
         public int TeamId { get; set; }
         public Team Team { get; set; } 

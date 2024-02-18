@@ -6,5 +6,6 @@ namespace LaxStats_API.Services.TeamServ
     {
         public IEnumerable<Team> GetTeams();
         public IEnumerable<Team> GetTeamsInLeague(int leagueId);
+        public Team GetTeamById(int teamId);
     }
 }

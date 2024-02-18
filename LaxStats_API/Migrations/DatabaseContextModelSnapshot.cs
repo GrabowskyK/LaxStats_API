@@ -50,7 +50,7 @@ namespace LaxStatsAPI.Migrations
 
                     b.HasIndex("PlayerId");
 
-                    b.ToTable("EventGoals");
+                    b.ToTable("EventGoals", (string)null);
                 });
 
             modelBuilder.Entity("LaxStats.Models.EventPenalty", b =>
@@ -82,7 +82,7 @@ namespace LaxStatsAPI.Migrations
 
                     b.HasIndex("PlayerId");
 
-                    b.ToTable("EventPenalties");
+                    b.ToTable("EventPenalties", (string)null);
                 });
 
             modelBuilder.Entity("LaxStats.Models.Game", b =>
@@ -126,7 +126,7 @@ namespace LaxStatsAPI.Migrations
 
                     b.HasIndex("LeagueId");
 
-                    b.ToTable("Games");
+                    b.ToTable("Games", (string)null);
                 });
 
             modelBuilder.Entity("LaxStats.Models.MatchStats.FaceOff", b =>
@@ -163,7 +163,7 @@ namespace LaxStatsAPI.Migrations
 
                     b.HasIndex("GameId");
 
-                    b.ToTable("FaceOffs");
+                    b.ToTable("FaceOffs", (string)null);
                 });
 
             modelBuilder.Entity("LaxStats.Models.MatchStats.Groundballs", b =>
@@ -200,7 +200,7 @@ namespace LaxStatsAPI.Migrations
 
                     b.HasIndex("GameId");
 
-                    b.ToTable("Groundballs");
+                    b.ToTable("Groundballs", (string)null);
                 });
 
             modelBuilder.Entity("LaxStats.Models.MatchStats.Shots", b =>
@@ -237,7 +237,7 @@ namespace LaxStatsAPI.Migrations
 
                     b.HasIndex("GameId");
 
-                    b.ToTable("Shots");
+                    b.ToTable("Shots", (string)null);
                 });
 
             modelBuilder.Entity("LaxStats.Models.MatchStats.ShotsWide", b =>
@@ -274,7 +274,7 @@ namespace LaxStatsAPI.Migrations
 
                     b.HasIndex("GameId");
 
-                    b.ToTable("ShotsWides");
+                    b.ToTable("ShotsWides", (string)null);
                 });
 
             modelBuilder.Entity("LaxStats.Models.MatchStats.Timeouts", b =>
@@ -299,7 +299,7 @@ namespace LaxStatsAPI.Migrations
 
                     b.HasIndex("GameId");
 
-                    b.ToTable("Timeouts");
+                    b.ToTable("Timeouts", (string)null);
                 });
 
             modelBuilder.Entity("LaxStats.Models.Player", b =>
@@ -346,7 +346,7 @@ namespace LaxStatsAPI.Migrations
 
                     b.HasIndex("TeamId");
 
-                    b.ToTable("Players");
+                    b.ToTable("Players", (string)null);
                 });
 
             modelBuilder.Entity("LaxStats.Models.Team", b =>
@@ -384,7 +384,7 @@ namespace LaxStatsAPI.Migrations
 
                     b.HasIndex("LeagueId");
 
-                    b.ToTable("Teams");
+                    b.ToTable("Teams", (string)null);
                 });
 
             modelBuilder.Entity("LaxStats_API.Models.League", b =>
@@ -404,7 +404,7 @@ namespace LaxStatsAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Leagues");
+                    b.ToTable("Leagues", (string)null);
                 });
 
             modelBuilder.Entity("LaxStats.Models.EventGoal", b =>

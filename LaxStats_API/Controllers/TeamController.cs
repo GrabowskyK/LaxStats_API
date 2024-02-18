@@ -7,7 +7,7 @@ namespace LaxStats_API.Controllers
 {
     [ApiController]
     [Route("Team")]
-    public class TeamController : Controller
+    public class TeamController : ControllerBase
     {
         private readonly ITeamService teamService;
         private readonly ILogger<TeamController> logger;

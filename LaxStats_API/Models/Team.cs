@@ -7,9 +7,9 @@ namespace LaxStats.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public string ShortName { get; set; }
-        public int win { get; set; }
-        public int lose { get; set; }
-        public int draw { get; set; }
+        public int win { get; set; } = 0;
+        public int lose { get; set; } = 0;
+        public int draw { get; set; } = 0;
         public int points { get; set; } = 0;
         public int LeagueId { get; set; }
         public League League { get; set; }
