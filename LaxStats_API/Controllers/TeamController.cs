@@ -1,4 +1,5 @@
 ﻿using LaxStats.Models;
+using LaxStats_API.DTO;
 using LaxStats_API.Services.LeagueServ;
 using LaxStats_API.Services.TeamServ;
 using Microsoft.AspNetCore.Mvc;
@@ -9,19 +10,16 @@ namespace LaxStats_API.Controllers
     [Route("Team")]
     public class TeamController : ControllerBase
     {
-        private readonly ITeamService teamService;
         private readonly ILogger<TeamController> logger;
+        private readonly ITeamService teamService;
+        private readonly ILeagueService leagueService;
 
-        public TeamController(ITeamService _teamService, ILogger<TeamController> _logger)
+
+        public TeamController(ILogger<TeamController> _logger, ITeamService _teamService,  ILeagueService _leagueService)
         {
-            teamService =_teamService;
             logger = _logger;
-        }
-        [HttpGet("ShowAllTeams")]
-        public IActionResult ShowTeams() 
-        {
-            var model = teamService.GetTeams();
-            return Ok(model);
+            teamService =_teamService;
+            leagueService = _leagueService;
         }
 
         [HttpGet("GetTeamsInLeague")]
@@ -31,5 +29,26 @@ namespace LaxStats_API.Controllers
             return Ok(model);
         }
 
+        [HttpPost("AddTeam")]
+        public IActionResult AddTeamToLeague([FromBody] TeamDTO team)
+        {
+            var league = leagueService.GetLeagueById(team.LeagueId);
+            Team newTeam = new Team()
+            {
+                Name = team.Name,
+                ShortName = team.ShortName,
+                LeagueId = team.LeagueId,
+                League = league
+            };
+            teamService.AddTeam(newTeam);
+            return Ok();
+        }
+
+        [HttpDelete("DeleteTeam")]
+        public IActionResult DeleteTeamFromLeague(int teamId)
+        {
+            teamService.DeleteTeam(teamId);
+            return Ok();
+        }
     }
 }

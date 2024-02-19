@@ -19,5 +19,7 @@ namespace LaxStats_API.Services.LeagueServ
             databaseContext.Leagues.Add(league);
             databaseContext.SaveChanges();
         }
+
+        public League GetLeagueById(int leagueId) => databaseContext.Leagues.Where(l => l.Id == leagueId).FirstOrDefault();
     }
 }

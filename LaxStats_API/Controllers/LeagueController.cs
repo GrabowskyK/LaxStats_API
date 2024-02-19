@@ -1,4 +1,5 @@
-﻿using LaxStats_API.Models;
+﻿using LaxStats_API.DTO;
+using LaxStats_API.Models;
 using LaxStats_API.Services.LeagueServ;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -17,15 +18,6 @@ namespace LaxStats_API.Controllers
             leagueService = _leagueService;
         }
 
-        [HttpGet("Test")]
-        public IActionResult Get()
-        {
-            List<string> strings = new List<string>()
-            {
-                "Kieł","Moko","Poko"
-            };
-            return Ok(strings);
-        }
 
         [HttpGet("GetLeagues")]
         public async Task<ActionResult<League>> GetLol()
@@ -35,10 +27,17 @@ namespace LaxStats_API.Controllers
         }
 
         [HttpPost("AddLeague")]
-        public IActionResult AddLeague(League league)
+        public IActionResult AddLeague([FromBody] LeagueDTO league)
         {
-            leagueService.AddLeague(league);
+            League newLeague = new League()
+            {
+                Name = league.Name,
+                Year = league.Year
+            };
+
+            leagueService.AddLeague(newLeague);
             return Ok();
         }
+
     }
 }

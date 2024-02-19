@@ -7,5 +7,6 @@ namespace LaxStats_API.Services.LeagueServ
         public IEnumerable<League> GetLeagues();
         public List<League> GetLeaguesList();
         public void AddLeague(League league);
+        public League GetLeagueById(int leagueId);
     }
 }

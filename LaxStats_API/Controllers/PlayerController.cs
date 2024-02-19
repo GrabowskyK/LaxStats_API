@@ -49,6 +49,7 @@ namespace LaxStats_API.Controllers
             return Ok();
         }
 
+        //There could be problem if player do something in any game. So this option should make a player "retirment"
         [HttpDelete("DeletePlayerFromTeam")]
         public IActionResult DeletePlayerFromTeam(int playerId)
         {
