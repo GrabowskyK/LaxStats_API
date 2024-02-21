@@ -13,7 +13,8 @@ namespace LaxStats.Models
         public int points { get; set; } = 0;
         public int LeagueId { get; set; }
         public League League { get; set; }
-        public ICollection<Player> Players { get; }
+        ICollection<Player> Players { get; set; }
+        public ICollection<PlayerGoalie> PlayerGoalies { get; set; }
 
         public ICollection<Game> HomeGames { get; set; }
         public ICollection<Game> AwayGames { get; set; }

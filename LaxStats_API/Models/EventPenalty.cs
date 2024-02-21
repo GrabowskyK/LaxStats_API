@@ -12,10 +12,10 @@
         public Game Game { get; set; }
 
         public EventPenalty() { }
-        public EventPenalty(TimeSpan timeEvent, Player player, PenaltyType penaltyType, int timePenalty, int gameId)
+        public EventPenalty(TimeSpan timeEvent, int playerId, PenaltyType penaltyType, int timePenalty, int gameId)
         {
             TimeEvent = timeEvent;
-            Player = player;
+            PlayerId = playerId;
             PenaltyType = penaltyType;
             TimePenalty = timePenalty;
             GameId = gameId;

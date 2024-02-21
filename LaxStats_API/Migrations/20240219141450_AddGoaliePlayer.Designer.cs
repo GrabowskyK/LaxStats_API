@@ -4,6 +4,7 @@ using LaxStats_API.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LaxStatsAPI.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20240219141450_AddGoaliePlayer")]
+    partial class AddGoaliePlayer
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -316,6 +319,10 @@ namespace LaxStatsAPI.Migrations
                     b.Property<DateTime>("Born")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("GamePlayed")
                         .HasColumnType("int");
 
@@ -347,6 +354,10 @@ namespace LaxStatsAPI.Migrations
                     b.HasIndex("TeamId");
 
                     b.ToTable("Players");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("Player");
+
+                    b.UseTphMappingStrategy();
                 });
 
             modelBuilder.Entity("LaxStats.Models.Team", b =>
@@ -409,43 +420,15 @@ namespace LaxStatsAPI.Migrations
 
             modelBuilder.Entity("LaxStats_API.Models.PlayerGoalie", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("Born")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("GamePlayed")
-                        .HasColumnType("int");
+                    b.HasBaseType("LaxStats.Models.Player");
 
                     b.Property<int>("Goals")
                         .HasColumnType("int");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("Saves")
                         .HasColumnType("int");
 
-                    b.Property<int>("ShirtNumber")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Surname")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("TeamId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("TeamId");
-
-                    b.ToTable("PlayerGoalie");
+                    b.HasDiscriminator().HasValue("PlayerGoalie");
                 });
 
             modelBuilder.Entity("LaxStats.Models.EventGoal", b =>
@@ -577,7 +560,7 @@ namespace LaxStatsAPI.Migrations
             modelBuilder.Entity("LaxStats.Models.Player", b =>
                 {
                     b.HasOne("LaxStats.Models.Team", "Team")
-                        .WithMany()
+                        .WithMany("Players")
                         .HasForeignKey("TeamId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -594,17 +577,6 @@ namespace LaxStatsAPI.Migrations
                         .IsRequired();
 
                     b.Navigation("League");
-                });
-
-            modelBuilder.Entity("LaxStats_API.Models.PlayerGoalie", b =>
-                {
-                    b.HasOne("LaxStats.Models.Team", "Team")
-                        .WithMany("PlayerGoalies")
-                        .HasForeignKey("TeamId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Team");
                 });
 
             modelBuilder.Entity("LaxStats.Models.Game", b =>
@@ -630,7 +602,7 @@ namespace LaxStatsAPI.Migrations
 
                     b.Navigation("HomeGames");
 
-                    b.Navigation("PlayerGoalies");
+                    b.Navigation("Players");
                 });
 
             modelBuilder.Entity("LaxStats_API.Models.League", b =>

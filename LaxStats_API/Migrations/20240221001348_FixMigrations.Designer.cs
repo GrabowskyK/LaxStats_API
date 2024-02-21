@@ -4,6 +4,7 @@ using LaxStats_API.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LaxStatsAPI.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20240221001348_FixMigrations")]
+    partial class FixMigrations
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -461,7 +464,7 @@ namespace LaxStatsAPI.Migrations
                         .IsRequired();
 
                     b.HasOne("LaxStats.Models.Player", "Player")
-                        .WithMany()
+                        .WithMany("Goals")
                         .HasForeignKey("PlayerId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
@@ -482,7 +485,7 @@ namespace LaxStatsAPI.Migrations
                         .IsRequired();
 
                     b.HasOne("LaxStats.Models.Player", "Player")
-                        .WithMany()
+                        .WithMany("Penalty")
                         .HasForeignKey("PlayerId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
@@ -577,7 +580,7 @@ namespace LaxStatsAPI.Migrations
             modelBuilder.Entity("LaxStats.Models.Player", b =>
                 {
                     b.HasOne("LaxStats.Models.Team", "Team")
-                        .WithMany()
+                        .WithMany("Players")
                         .HasForeignKey("TeamId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -624,6 +627,13 @@ namespace LaxStatsAPI.Migrations
                     b.Navigation("Timeouts");
                 });
 
+            modelBuilder.Entity("LaxStats.Models.Player", b =>
+                {
+                    b.Navigation("Goals");
+
+                    b.Navigation("Penalty");
+                });
+
             modelBuilder.Entity("LaxStats.Models.Team", b =>
                 {
                     b.Navigation("AwayGames");
@@ -631,6 +641,8 @@ namespace LaxStatsAPI.Migrations
                     b.Navigation("HomeGames");
 
                     b.Navigation("PlayerGoalies");
+
+                    b.Navigation("Players");
                 });
 
             modelBuilder.Entity("LaxStats_API.Models.League", b =>

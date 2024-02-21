@@ -13,12 +13,12 @@
 
         public EventGoal() { }
 
-        public EventGoal(TimeSpan time, Player player, int gameId, Player? assist = null)
+        public EventGoal(TimeSpan time, int playerId, int gameId, int? assistId = null)
         {
             TimeGoal = time;
-            Player = player;
+            PlayerId = playerId;
             GameId = gameId;
-            Assist = assist;
+            AssistId = assistId;
         }
     }
 }

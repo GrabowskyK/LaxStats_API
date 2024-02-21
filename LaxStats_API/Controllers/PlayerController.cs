@@ -8,18 +8,17 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace LaxStats_API.Controllers
 {
+    [ApiController]
+    [Route("Player")]
     public class PlayerController : ControllerBase
     {
-        private readonly DatabaseContext databaseContext;
         private readonly ILogger<PlayerController> logger;
         private readonly IPlayerService playerService;
-        private readonly ITeamService teamService;
 
-        public PlayerController(ILogger<PlayerController> _logger, IPlayerService _playerService, ITeamService _teamService)
+        public PlayerController(ILogger<PlayerController> _logger, IPlayerService _playerService)
         {
             logger = _logger;
             playerService = _playerService;
-            teamService = _teamService;
         }
 
         [HttpGet("PlayersInTeam")]
@@ -29,12 +28,16 @@ namespace LaxStats_API.Controllers
             return Ok(model);
         }
 
+        [HttpGet("XD")]
+        public IActionResult XD(int teamId)
+        {
+            var model = playerService.xd(teamId);
+            return Ok(model);
+        }
+
         [HttpPost("AddPlayerToTeam")]
         public IActionResult AddPlayerToTeam([FromBody] PlayerDTO player)
         {
-            //To find team
-            var team = teamService.GetTeamById(player.TeamId);
-
             Player newPlayer = new Player()
             {
                 Name = player.Name,
@@ -42,7 +45,6 @@ namespace LaxStats_API.Controllers
                 Born = player.Born,
                 ShirtNumber = player.ShirtNumber,
                 TeamId = player.TeamId,
-                Team = team
             };
 
             playerService.AddPlayer(newPlayer);
@@ -56,6 +58,7 @@ namespace LaxStats_API.Controllers
             playerService.DeletePlayer(playerId);
             return Ok();
         }
+
 
     }
 }

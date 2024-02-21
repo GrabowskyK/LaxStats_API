@@ -1,8 +1,8 @@
-﻿using System.Xml.Linq;
+﻿using LaxStats.Models;
 
-namespace LaxStats.Models
+namespace LaxStats_API.Models
 {
-    public class Player
+    public class PlayerGoalie
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -10,13 +10,10 @@ namespace LaxStats.Models
         public DateTime Born { get; set; }
         public int ShirtNumber { get; set; }
         public int GamePlayed { get; set; } = 0;
-        public int Goal { get; set; } = 0;
-        public int Assist { get; set; } = 0;
-        public int Penalties { get; set; } = 0;
-        public int MinutesPenalties { get; set; } = 0;
-        
+        public int Saves { get; set; } = 0;
+        public int Goals { get; set; } = 0;
         public int TeamId { get; set; }
-        public Team Team { get; set; } 
+        public Team Team { get; set; }
 
 
     }

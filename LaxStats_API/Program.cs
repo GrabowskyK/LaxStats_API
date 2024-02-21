@@ -5,6 +5,9 @@ using LaxStats_API.Services.TeamServ;
 using LaxStats_API.Services.GameServ;
 using Microsoft.EntityFrameworkCore;
 using LaxStats_API.Services.PlayerServ;
+using LaxStats_API.Services.EventGoalServ;
+using LaxStats_API.Services.EventPenaltyServ;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +18,8 @@ builder.Services.AddScoped<ILeagueService, LeagueService>();
 builder.Services.AddScoped<ITeamService, TeamService>();
 builder.Services.AddScoped<IPlayerService, PlayerService>();
 builder.Services.AddScoped<IGameService, GameService>();
+builder.Services.AddScoped<IEventGoalService, EventGoalService>();
+builder.Services.AddScoped<IEventPenaltyService, EventPenaltyService>();
 builder.Services.AddHttpContextAccessor();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

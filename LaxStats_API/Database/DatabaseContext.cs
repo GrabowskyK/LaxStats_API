@@ -37,11 +37,14 @@ namespace LaxStats_API.Database
                     .WithMany()
                     .HasForeignKey(ep => ep.PlayerId)
                     .OnDelete(DeleteBehavior.NoAction);
+
+
         }
 
-            public DbSet<League> Leagues { get; set; }
+        public DbSet<League> Leagues { get; set; }
             public DbSet<Team> Teams { get; set; }
             public DbSet<Player> Players { get; set; }
+         //   public DbSet<PlayerGoalie> PlayerGoalies { get; set; }
             public DbSet<Game> Games { get; set; }
 
             //Game stats
@@ -52,6 +55,6 @@ namespace LaxStats_API.Database
             public DbSet<Shots> Shots { get; set; }
             public DbSet<ShotsWide> ShotsWides { get; set; }
             public DbSet<Groundballs> Groundballs { get; set; }
-            //public DbSet<GoalieSavesAndGoals> GoalieStats { get; set; }
+          //  public DbSet<GoalieSavesAndGoals> GoalieStats { get; set; }
     }
 }
